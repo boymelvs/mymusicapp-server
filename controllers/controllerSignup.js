@@ -32,36 +32,46 @@ exports.signup = async (req, res) => {
    const hashPassword = await bcrypt.hash(password, 10);
    const myQuery = `INSERT INTO users SET ?`;
 
-   db.query(myQuery, { first_name: first_name, last_name: last_name, email: email, password: hashPassword }, (err, results) => {
-      if (err) {
-         res.status(400);
-
-         if (err.errno === 1062) {
-            console.log("err.errno", err.errno);
-            error_list.duplicate = "Email already in use";
-            return res.send(error_list);
-         } else {
-            return res.send(err.message);
-         }
+   db.getConnection((connectError, connection) => {
+      if (connectError) {
+         console.log("connectdb error", connectError);
+         return;
       }
 
-      if (results.affectedRows >= 1) {
-         const newMyQuery = `SELECT * FROM users WHERE email = ?`;
+      connection.query(myQuery, { first_name: first_name, last_name: last_name, email: email, password: hashPassword }, (err, results) => {
+         if (err) {
+            res.status(400);
 
-         db.query(newMyQuery, email, (err, results) => {
-            if (err) {
+            if (err.errno === 1062) {
+               console.log("err.errno", err.errno);
+               error_list.duplicate = "Email already in use";
+               return res.send(error_list);
+            } else {
                console.log(err);
+               return res.send(err.message);
             }
-            const sendResults = {
-               id: results[0].user_id,
-               first_name: results[0].first_name,
-               last_name: results[0].last_name,
-               email: results[0].email,
-               image: "",
-               is_admin: results[0].is_admin,
-            };
-            return res.status(200).json(sendResults);
-         });
-      }
+         }
+
+         if (results.affectedRows >= 1) {
+            const newMyQuery = `SELECT * FROM users WHERE email = ?`;
+
+            connection.query(newMyQuery, email, (err, results) => {
+               if (err) {
+                  console.log(err);
+               }
+               const sendResults = {
+                  id: results[0].user_id,
+                  first_name: results[0].first_name,
+                  last_name: results[0].last_name,
+                  email: results[0].email,
+                  image: "",
+                  is_admin: results[0].is_admin,
+               };
+               return res.status(200).json(sendResults);
+            });
+         }
+      });
+
+      connection.release();
    });
 };

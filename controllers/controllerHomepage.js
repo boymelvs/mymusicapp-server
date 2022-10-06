@@ -62,7 +62,7 @@ exports.startSearch = async (req, res) => {
 
    try {
       const results = await doSearching(search, token);
-      res.send(results.splice(0, 9));
+      res.send(results.splice(0, 12));
    } catch (err) {
       // when token expired
       try {
@@ -71,7 +71,7 @@ exports.startSearch = async (req, res) => {
             console.log("refresh token");
 
             const results = await doSearching(search, renewToken);
-            res.send(results.splice(0, 9));
+            res.send(results.splice(0, 12));
 
             return;
          }

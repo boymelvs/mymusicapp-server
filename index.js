@@ -20,11 +20,12 @@ app.use("/users", require("./routes/routesUser"));
 app.listen(port, () => {
    console.log(`Server running at http://localhost:${port}`);
 
-   db.connect((err) => {
+   db.getConnection((err, connection) => {
       if (err) {
          console.log("Database Error:", err);
       } else {
          console.log("Database Successfuly Connected!");
+         connection.release();
       }
    });
 });

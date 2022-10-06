@@ -5,15 +5,24 @@ exports.delete = (req, res) => {
 
    const myQuery = `DELETE FROM users WHERE user_id = ?`;
 
-   db.query(myQuery, id, (err, results) => {
-      if (err) {
-         return console.log(err.message);
+   db.getConnection((connectError, connection) => {
+      if (connectError) {
+         console.log("connectdb error", connectError);
+         return;
       }
 
-      if (results.affectedRows > 0) {
-         return res.json({ message: "Deleted Successfuly" });
-      }
+      connection.query(myQuery, id, (err, results) => {
+         if (err) {
+            return console.log(err.message);
+         }
 
-      return res.json(results);
+         if (results.affectedRows > 0) {
+            return res.json({ message: "Deleted Successfuly" });
+         }
+
+         return res.json(results);
+      });
+
+      connection.release();
    });
 };
