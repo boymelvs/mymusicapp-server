@@ -2,11 +2,11 @@
 
 ## Table of contents
 
--  [Overview](#overview)
-   -  [The Project](#the-project)
-   -  [Group Member](#group-member)
-   -  [Links](#links)
-   -  [Built with](#built-with)
+-    [Overview](#overview)
+     -    [The Project](#the-project)
+     -    [Group Member](#group-member)
+     -    [Links](#links)
+     -    [Built with](#built-with)
 
 ## Welcome! 👋
 
@@ -22,19 +22,20 @@ The is a group project and is about to build a website demonstrating what we lea
 
 ### Group Member
 
--  [**Bryan**](https://github.com/MarcAndrey1215)
--  [**Dax**](https://github.com/daxtangco)
--  [**Tj**](https://github.com/thygz)
--  [**Melvin**](https://boymelvs.github.io/pairgo)
+-    [**Bryan**](https://github.com/MarcAndrey1215)
+-    [**Dax**](https://github.com/daxtangco)
+-    [**Tj**](https://github.com/thygz)
+-    [**Melvin**](https://boymelvs.github.io/pairgo)
 
 ### Links
 
--  Live Site URL: [KODEGOPH-PROJECT-3]()
+-    Live Site URL: [MUSIC APP](https://mymusicapp-nine.vercel.app/)
 
 ### Built with
 
--  HTML
--  SCSS/CSS
--  Javascript
--  React Js
--  NodeJs
+-    HTML
+-    SCSS/CSS
+-    Javascript
+-    React Js
+-    NodeJs
+-    MySQL
